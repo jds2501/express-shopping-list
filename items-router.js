@@ -7,23 +7,13 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    try {
-        itemsModel.addItem(req.body.name, req.body.price);
-        return res.json({ "added": { name: req.body.name, price: req.body.price } });
-    } catch (err) {
-        res.status = 400;
-        return res.json({ "error": err.toString() });
-    }
+    itemsModel.addItem(req.body.name, req.body.price);
+    return res.json({ "added": { name: req.body.name, price: req.body.price } });
 });
 
 router.get('/:name', (req, res) => {
-    try {
-        const item = itemsModel.getItem(req.params.name);
-        return res.json(item);
-    } catch (err) {
-        res.status = 400;
-        return res.json({ "error": err.toString() });
-    }
+    const item = itemsModel.getItem(req.params.name);
+    return res.json(item);
 });
 
 module.exports = router;
