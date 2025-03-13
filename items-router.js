@@ -21,4 +21,9 @@ router.patch('/:name', (req, res) => {
     return res.json({ "updated": { name: req.body.name, price: req.body.price } });
 })
 
+router.delete('/:name', (req, res) => {
+    itemsModel.deleteItem(req.params.name);
+    return res.json({ "message": "Deleted" });
+});
+
 module.exports = router;
