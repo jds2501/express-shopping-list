@@ -16,4 +16,9 @@ router.get('/:name', (req, res) => {
     return res.json(item);
 });
 
+router.patch('/:name', (req, res) => {
+    itemsModel.updateItem(req.params.name, req.body.name, req.body.price);
+    return res.json({ "updated": { name: req.body.name, price: req.body.price } });
+})
+
 module.exports = router;
