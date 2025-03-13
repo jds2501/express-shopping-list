@@ -64,3 +64,5 @@ function deleteItem(name) {
         db.splice(index, 1);
     }
 }
+
+module.exports = { getItems, getItem, addItem, updateItem, deleteItem };
