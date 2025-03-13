@@ -14,6 +14,16 @@ router.post('/', (req, res) => {
         res.status = 400;
         return res.json({ "error": err.toString() });
     }
-})
+});
+
+router.get('/:name', (req, res) => {
+    try {
+        const item = itemsModel.getItem(req.params.name);
+        return res.json(item);
+    } catch (err) {
+        res.status = 400;
+        return res.json({ "error": err.toString() });
+    }
+});
 
 module.exports = router;
