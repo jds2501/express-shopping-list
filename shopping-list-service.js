@@ -8,7 +8,7 @@ app.use('/items', items);
 
 // Handles accessing a non-matching path
 app.use((req, res) => {
-    return res.status(400).send({
+    return res.status(404).send({
         error: "URL not found"
     });
 });
