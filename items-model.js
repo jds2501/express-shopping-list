@@ -48,7 +48,7 @@ function updateItem(findName, newName, newPrice) {
 
     const index = db.findIndex((item) => item.name === findName);
     if (index === -1) {
-        throw new Error(`${name} not found`);
+        throw new Error(`${findName} not found`);
     } else {
         db.splice(index, 1, { name: newName, price: newPrice });
     }
