@@ -1,6 +1,10 @@
 const itemsModel = require('../items-model.js');
 
 describe('Items Model', () => {
+    afterEach(() => {
+        itemsModel.deleteAll();
+    });
+
     it('get items return empty DB on initialization', () => {
         expect(itemsModel.getItems()).toStrictEqual([]);
     });
@@ -17,6 +21,13 @@ describe('Items Model', () => {
         itemsModel.addItem("test", 2.3);
         expect(itemsModel.getItems()[0]).toStrictEqual({ name: "test", price: 2.3 });
         expect(itemsModel.getItem("test")).toStrictEqual({ name: "test", price: 2.3 });
+    });
+
+    it('adding two items should have 2 items and enable requesting a specific item', () => {
+        itemsModel.addItem("first", 2.3);
+        itemsModel.addItem("second", 4.8);
+        expect(itemsModel.getItems().length).toBe(2);
+        expect(itemsModel.getItem("first")).toStrictEqual({ name: "first", price: 2.3 });
     });
 
     it('missing name and/or price should throw an error', () => {

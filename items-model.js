@@ -72,4 +72,8 @@ function deleteItem(name) {
     }
 }
 
-module.exports = { getItems, getItem, addItem, updateItem, deleteItem };
+function deleteAll() {
+    db.splice(0, db.length);
+}
+
+module.exports = { getItems, getItem, addItem, updateItem, deleteItem, deleteAll };
