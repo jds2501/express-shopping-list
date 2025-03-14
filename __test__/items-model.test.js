@@ -40,4 +40,14 @@ describe('Items Model', () => {
         expect(() => itemsModel.updateItem("test")).toThrow("A string name needs to be included");
         expect(() => itemsModel.updateItem("test", "update")).toThrow("A numerical price needs to be included");
     });
+
+    it('adding & updating an item should show the update on retrieval', () => {
+        itemsModel.addItem("first", 2.3);
+        itemsModel.updateItem("first", "diff", 3.7);
+        expect(itemsModel.getItem("diff")).toStrictEqual({ name: "diff", price: 3.7 });
+    });
+
+    it('missing name should throw an error on delete', () => {
+        expect(() => itemsModel.deleteItem()).toThrow("A string name needs to be included");
+    })
 });
