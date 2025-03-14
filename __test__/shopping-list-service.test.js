@@ -16,6 +16,6 @@ describe('Shopping List Service API Tests', () => {
     test('GET request on /items with no items', (done) => {
         request(server)
             .get("/items")
-            .expect(200, done);
+            .expect(200, [], done);
     })
 });
