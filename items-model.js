@@ -44,7 +44,7 @@ function addItem(name, price) {
     if (db.filter((item) => item.name === name).length === 0) {
         db.push({ name, price });
     } else {
-        throw new HTTPError("Duplicate item being added", 404);
+        throw new HTTPError("Duplicate item being added", 409);
     }
 }
 
