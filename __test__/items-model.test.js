@@ -49,5 +49,11 @@ describe('Items Model', () => {
 
     it('missing name should throw an error on delete', () => {
         expect(() => itemsModel.deleteItem()).toThrow("A string name needs to be included");
-    })
+    });
+
+    it('adding & deleting an item should result in no entries', () => {
+        itemsModel.addItem("first", 2.3);
+        itemsModel.deleteItem("first");
+        expect(itemsModel.getItems().length).toBe(0);
+    });
 });
