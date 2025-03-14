@@ -50,7 +50,6 @@ describe('Shopping List Service API Tests', () => {
             .send({ name: "test", price: 2.3 })
             .expect(200);
 
-
         const patchResponse = await request(server)
             .patch('/items/test')
             .send({ name: "updated", price: 3.7 })
@@ -61,5 +60,22 @@ describe('Shopping List Service API Tests', () => {
         await request(server)
             .get("/items/updated")
             .expect(200, { name: "updated", price: 3.7 });
+    });
+
+    test('POST, DELETE, and GET request on an item', async () => {
+        await request(server)
+            .post('/items')
+            .send({ name: "test", price: 2.3 })
+            .expect(200);
+
+        const deleteResponse = await request(server)
+            .delete('/items/test')
+            .expect(200);
+
+        expect(deleteResponse.body.message).toStrictEqual("Deleted");
+
+        await request(server)
+            .get("/items")
+            .expect(200, []);
     });
 });
