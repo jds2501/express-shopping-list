@@ -33,5 +33,11 @@ describe('Items Model', () => {
     it('missing name and/or price should throw an error', () => {
         expect(() => itemsModel.addItem()).toThrow("A string name needs to be included");
         expect(() => itemsModel.addItem("test")).toThrow("A numerical price needs to be included");
-    })
+    });
+
+    it('update item should throw errors with missing parameters', () => {
+        expect(() => itemsModel.updateItem()).toThrow("A string name needs to be included");
+        expect(() => itemsModel.updateItem("test")).toThrow("A string name needs to be included");
+        expect(() => itemsModel.updateItem("test", "update")).toThrow("A numerical price needs to be included");
+    });
 });
