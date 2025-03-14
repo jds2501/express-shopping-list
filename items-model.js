@@ -1,21 +1,21 @@
 const db = require('./fakeDB.js');
 
-class BadRequestError extends Error {
-    constructor(message) {
+class HTTPError extends Error {
+    constructor(message, statusCode) {
         super(message);
-        this.statusCode = 400;
+        this.statusCode = statusCode;
     }
 }
 
 function validateName(name) {
     if (!name || typeof name !== "string") {
-        throw new BadRequestError("A string name needs to be included");
+        throw new HTTPError("A string name needs to be included", 400);
     }
 }
 
 function validatePrice(price) {
     if (!price || isNaN(price)) {
-        throw new BadRequestError("A numerical price needs to be included");
+        throw new HTTPError("A numerical price needs to be included", 400);
     }
 }
 
@@ -33,7 +33,7 @@ function getItem(name) {
     if (filterItem.length === 1) {
         return filterItem[0];
     } else {
-        throw new BadRequestError(`${name} not found in DB`);
+        throw new HTTPError(`${name} not found in DB`, 404);
     }
 }
 
@@ -44,7 +44,7 @@ function addItem(name, price) {
     if (db.filter((item) => item.name === name).length === 0) {
         db.push({ name, price });
     } else {
-        throw new BadRequestError("Duplicate item being added");
+        throw new HTTPError("Duplicate item being added", 404);
     }
 }
 
@@ -55,7 +55,7 @@ function updateItem(findName, newName, newPrice) {
 
     const index = db.findIndex((item) => item.name === findName);
     if (index === -1) {
-        throw new BadRequestError(`${findName} not found`);
+        throw new HTTPError(`${findName} not found`, 404);
     } else {
         db.splice(index, 1, { name: newName, price: newPrice });
     }
@@ -66,7 +66,7 @@ function deleteItem(name) {
 
     const index = db.findIndex((item) => item.name === name);
     if (index === -1) {
-        throw new BadRequestError(`${name} not found`);
+        throw new HTTPError(`${name} not found`, 404);
     } else {
         db.splice(index, 1);
     }
